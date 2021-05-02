@@ -15,7 +15,7 @@ def main():
         baseurl = baseurl + subjects[i] + 'archive-2021-february-'
         data = getData(baseurl)
         datalist.append(data)
-    
+    saveData(datalist, dst)
 
 findnum = re.compile(r'"totalQuestions":[0-9]*,"')
 subjects = ["statistics-and-probability-", "calculus-", "algebra-", "economics"]
@@ -75,10 +75,20 @@ def getData(baseurl):
                     data.append(num)
             else:
                 print("something wrong happened")  
-        time.sleep(3)  
+        time.sleep(1)  
     return data
 
-
+def saveData(datalist, dst):
+    book = xlwt.Workbook(encoding="utf-8")
+    sheet = book.add_sheet('sheet1', cell_overwrite_ok=True)
+    for i in range(0, 4):
+        length = len(datalist[i])
+        for j in range(0, length):
+            tmp = datalist[j][15:-1]
+            print(tmp)
+            sheet.write(j + 1, i + 1, tmp)
+    book.save(dst)
+    print("success!")
 
 
 if __name__ == "__main__":
