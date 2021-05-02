@@ -84,7 +84,7 @@ def saveData(datalist, dst):
     for i in range(0, 4):
         length = len(datalist[i])
         for j in range(0, length):
-            tmp = datalist[j][15:-1]
+            tmp = datalist[i][j][17:len(datalist[i][j])-2]
             print(tmp)
             sheet.write(j + 1, i + 1, tmp)
     book.save(dst)
